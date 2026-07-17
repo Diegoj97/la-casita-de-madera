@@ -1,0 +1,61 @@
+<div class="w-full max-w-2xl">
+  <div class="relative overflow-hidden rounded-3xl shadow-md">
+    <div class="h-96 w-full bg-stone-100">
+      <img
+        [src]="images()[current()]"
+        [alt]="alt()"
+        class="h-96 w-full object-cover"
+      />
+    </div>
+
+    @if (images().length > 1) {
+      <button
+        type="button"
+        (click)="prev()"
+        aria-label="Anterior"
+        class="absolute inset-y-0 left-3 my-auto flex h-11 w-11 items-center justify-center rounded-full bg-white/85 text-2xl leading-none text-stone-800 shadow hover:bg-white"
+      >
+        ‹
+      </button>
+      <button
+        type="button"
+        (click)="next()"
+        aria-label="Siguiente"
+        class="absolute inset-y-0 right-3 my-auto flex h-11 w-11 items-center justify-center rounded-full bg-white/85 text-2xl leading-none text-stone-800 shadow hover:bg-white"
+      >
+        ›
+      </button>
+
+      <div class="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5 rounded-full bg-black/40 px-3 py-1.5">
+        @for (img of images(); track img; let i = $index) {
+          <button
+            type="button"
+            (click)="select(i)"
+            [class.bg-white]="i === current()"
+            [class.bg-white/50]="i !== current()"
+            class="h-2.5 w-2.5 rounded-full transition"
+            [attr.aria-label]="'Ir a imagen ' + (i + 1)"
+          ></button>
+        }
+      </div>
+    }
+  </div>
+
+  @if (images().length > 1) {
+    <div class="mt-4 flex flex-wrap justify-center gap-3">
+      @for (img of images(); track img; let i = $index) {
+        <button
+          type="button"
+          (click)="select(i)"
+          [class.ring-2]="i === current()"
+          [class.ring-amber-600]="i === current()"
+          class="h-20 w-20 overflow-hidden rounded-xl border transition hover:opacity-90"
+          [class.border-amber-600]="i === current()"
+          [class.border-transparent]="i !== current()"
+        >
+          <img [src]="img" [alt]="alt() + ' ' + (i + 1)" class="h-20 w-20 object-cover" />
+        </button>
+      }
+    </div>
+  }
+</div>

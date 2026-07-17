@@ -1,0 +1,66 @@
+<div class="flex min-h-screen items-center justify-center bg-[#fdfbf7] px-4 font-sans selection:bg-amber-200">
+  <div class="w-full max-w-md rounded-xl border border-stone-200 bg-white p-8 shadow-sm">
+    <div class="mb-8 text-center">
+      <svg class="mx-auto mb-4 h-14 w-14 text-amber-700" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M27 14c-2-4-6-5-8-3s-1 6 2 8" />
+        <path d="M37 14c2-4 6-5 8-3s1 6-2 8" />
+        <path d="M26 24c-10-2-16-8-15-12 4-2 11 0 15 6" />
+        <path d="M38 24c10-2 16-8 15-12-4-2-11 0-15 6" />
+        <ellipse cx="32" cy="34" rx="12" ry="15" fill="currentColor" stroke="none" />
+        <path d="M21 31h22" stroke="#fdfbf7" stroke-width="3" />
+        <path d="M20 38h24" stroke="#fdfbf7" stroke-width="3" />
+        <path d="M22 45h20" stroke="#fdfbf7" stroke-width="3" />
+        <circle cx="27" cy="25" r="1.6" fill="#fdfbf7" stroke="none" />
+        <circle cx="37" cy="25" r="1.6" fill="#fdfbf7" stroke="none" />
+      </svg>
+      <h2 class="font-serif text-2xl font-bold text-stone-900">Acceso Admin</h2>
+      <p class="mt-2 text-sm text-stone-500">El Colmenar la Casita de Madera</p>
+    </div>
+
+    @if (error()) {
+      <div class="mb-4 rounded-md bg-red-50 p-3 text-sm text-red-600 border border-red-100">
+        {{ error() }}
+      </div>
+    }
+
+    <form (ngSubmit)="login()" class="space-y-5">
+      <div>
+        <label for="username" class="block text-sm font-medium text-stone-700">Usuario</label>
+        <input 
+          id="username" 
+          name="username" 
+          type="text" 
+          [ngModel]="username()" 
+          (ngModelChange)="username.set($event)"
+          required
+          class="mt-1 block w-full rounded-md border-stone-300 px-3 py-2 shadow-sm focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm"
+        />
+      </div>
+
+      <div>
+        <label for="password" class="block text-sm font-medium text-stone-700">Contraseña</label>
+        <input 
+          id="password" 
+          name="password" 
+          type="password" 
+          [ngModel]="password()" 
+          (ngModelChange)="password.set($event)"
+          required
+          class="mt-1 block w-full rounded-md border-stone-300 px-3 py-2 shadow-sm focus:border-amber-500 focus:outline-none focus:ring-amber-500 sm:text-sm"
+        />
+      </div>
+
+      <button 
+        type="submit" 
+        [disabled]="isLoading()"
+        class="flex w-full justify-center rounded-md border border-transparent bg-amber-700 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-amber-800 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 disabled:opacity-50"
+      >
+        {{ isLoading() ? 'Entrando...' : 'Iniciar Sesión' }}
+      </button>
+    </form>
+    
+    <div class="mt-6 text-center">
+      <a href="/" class="text-sm text-amber-700 hover:text-amber-900">Volver a la portada</a>
+    </div>
+  </div>
+</div>

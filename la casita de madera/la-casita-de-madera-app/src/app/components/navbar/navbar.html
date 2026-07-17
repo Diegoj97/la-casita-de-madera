@@ -1,0 +1,76 @@
+<nav class="relative z-10 w-full max-w-4xl rounded-xl bg-[#d4c6b1] px-5 py-4 shadow-sm md:px-8">
+  <!-- Brand (top) -->
+  <div class="flex items-center justify-between gap-4">
+    <div class="flex flex-1 flex-row items-center justify-center gap-3 md:flex-col md:gap-2">
+      <svg class="h-10 w-10 text-stone-800" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <!-- Antenas -->
+        <path d="M27 14c-2-4-6-5-8-3s-1 6 2 8" />
+        <path d="M37 14c2-4 6-5 8-3s1 6-2 8" />
+        <!-- Alas -->
+        <path d="M26 24c-10-2-16-8-15-12 4-2 11 0 15 6" />
+        <path d="M38 24c10-2 16-8 15-12-4-2-11 0-15 6" />
+        <!-- Cuerpo -->
+        <ellipse cx="32" cy="34" rx="12" ry="15" fill="currentColor" stroke="none" />
+        <!-- Rayas -->
+        <path d="M21 31h22" stroke="#fdfbf7" stroke-width="3" />
+        <path d="M20 38h24" stroke="#fdfbf7" stroke-width="3" />
+        <path d="M22 45h20" stroke="#fdfbf7" stroke-width="3" />
+        <!-- Ojos -->
+        <circle cx="27" cy="25" r="1.6" fill="#fdfbf7" stroke="none" />
+        <circle cx="37" cy="25" r="1.6" fill="#fdfbf7" stroke="none" />
+      </svg>
+      <h1 class="text-center font-serif text-lg text-stone-800 sm:text-2xl md:text-3xl">El Colmenar la Casita de Madera</h1>
+    </div>
+
+    <!-- Burger button (mobile) -->
+    <button
+      type="button"
+      (click)="toggleMenu()"
+      class="inline-flex items-center justify-center rounded-lg p-2 text-stone-800 hover:bg-stone-900/10 md:hidden"
+      [attr.aria-expanded]="menuOpen()"
+      aria-label="Abrir menú"
+    >
+      @if (menuOpen()) {
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      } @else {
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      }
+    </button>
+  </div>
+
+  <!-- Links (bottom, centered) -->
+      <ul class="mt-4 hidden flex-wrap items-center justify-center gap-6 text-sm font-semibold tracking-wide text-stone-700 md:flex">
+        <li><a routerLink="/quienes-somos" class="hover:text-amber-700">QUIÉNES SOMOS</a></li>
+    <li><button type="button" (click)="onColmenar()" class="hover:text-amber-700">NUESTRO COLMENAR</button></li>
+    <li><button type="button" (click)="onProducts()" class="hover:text-amber-700">NUESTROS PRODUCTOS</button></li>
+    @if (isAuthenticated()) {
+      <li><a routerLink="/admin/blog" class="text-amber-700 hover:text-amber-900">ADMIN</a></li>
+      <li>
+        <button type="button" (click)="signOut()" class="text-stone-700 hover:text-red-600">SIGN OUT</button>
+      </li>
+    } @else {
+      <li><a routerLink="/login" class="text-amber-700 hover:text-amber-900">SIGN IN</a></li>
+    }
+  </ul>
+
+  <!-- Mobile menu -->
+  @if (menuOpen()) {
+    <ul class="mt-4 flex flex-col gap-3 border-t border-stone-900/10 pt-4 text-sm font-semibold tracking-wide text-stone-700 md:hidden">
+        <li><a routerLink="/quienes-somos" (click)="closeMenu()" class="block hover:text-amber-700">QUIÉNES SOMOS</a></li>
+      <li><button type="button" (click)="onColmenar()" class="block hover:text-amber-700">NUESTRO COLMENAR</button></li>
+      <li><button type="button" (click)="onProducts()" class="block hover:text-amber-700">NUESTROS PRODUCTOS</button></li>
+      @if (isAuthenticated()) {
+        <li><a routerLink="/admin/blog" (click)="closeMenu()" class="block text-amber-700 hover:text-amber-900">ADMIN</a></li>
+        <li>
+          <button type="button" (click)="signOut()" class="block text-left text-stone-700 hover:text-red-600">SIGN OUT</button>
+        </li>
+      } @else {
+        <li><a routerLink="/login" (click)="closeMenu()" class="block text-amber-700 hover:text-amber-900">SIGN IN</a></li>
+      }
+    </ul>
+  }
+</nav>

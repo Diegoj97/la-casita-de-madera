@@ -1,0 +1,41 @@
+<div class="mx-auto max-w-3xl px-4 py-12">
+  <a
+    routerLink="/"
+    class="mb-8 inline-block text-sm text-amber-700 hover:text-amber-800"
+  >
+    &larr; Volver al inicio
+  </a>
+
+  @if (loading()) {
+    <p class="text-center text-stone-400">Loading...</p>
+  } @else if (error(); as err) {
+    <p class="text-center text-red-500">{{ err }}</p>
+  } @else if (post(); as p) {
+    <article>
+      @if (p.image_url) {
+        <img
+          [src]="p.image_url"
+          [alt]="p.title"
+          class="mb-8 w-full rounded-xl object-cover"
+        />
+      }
+
+      <div class="mb-4 flex flex-wrap gap-2">
+        @for (tag of p.tags; track tag) {
+          <span class="rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-800">
+            {{ tag }}
+          </span>
+        }
+      </div>
+
+      <h1 class="mb-4 text-4xl font-bold text-stone-900">{{ p.title }}</h1>
+
+      <div class="mb-8 flex items-center gap-4 text-sm text-stone-400">
+        <span>{{ p.author }}</span>
+        <time>{{ p.created_at | dateFormat }}</time>
+      </div>
+
+      <div class="prose prose-stone max-w-none" [innerHTML]="p.content"></div>
+    </article>
+  }
+</div>

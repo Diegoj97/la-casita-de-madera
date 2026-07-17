@@ -1,0 +1,30 @@
+[build]
+  command = "npm run build:static"
+  publish = "dist/la-casita-de-madera-app/browser"
+
+[build.environment]
+  NPM_FLAGS = "--legacy-peer-deps"
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://YOUR_RENDER_API_URL.onrender.com/api/:splat"
+  status = 200
+  force = false
+
+[[redirects]]
+  from = "/uploads/*"
+  to = "https://YOUR_RENDER_API_URL.onrender.com/uploads/:splat"
+  status = 200
+  force = false
+
+[[redirects]]
+  from = "/backgrounds/*"
+  to = "https://YOUR_RENDER_API_URL.onrender.com/backgrounds/:splat"
+  status = 200
+  force = false
+
+# SPA fallback — all other routes serve index.html
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

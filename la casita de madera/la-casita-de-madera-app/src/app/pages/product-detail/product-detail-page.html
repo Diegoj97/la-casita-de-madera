@@ -1,0 +1,50 @@
+<div class="mx-auto max-w-4xl px-4 py-10">
+  <a
+    routerLink="/"
+    class="mb-8 inline-block text-sm text-amber-700 hover:text-amber-800"
+  >
+    &larr; Volver al inicio
+  </a>
+
+  @if (loading()) {
+    <p class="text-center text-stone-400">Loading...</p>
+  } @else if (error(); as err) {
+    <p class="text-center text-red-500">{{ err }}</p>
+  } @else if (product(); as p) {
+    <article class="flex flex-col items-center gap-8">
+      @if (p.images && p.images.length > 0) {
+        <app-product-carousel [images]="p.images" [alt]="p.name" />
+      } @else if (p.image_url) {
+        <img
+          [src]="p.image_url"
+          [alt]="p.name"
+          class="mx-auto h-96 w-full max-w-2xl rounded-3xl object-cover shadow-md"
+        />
+      }
+
+      <div class="w-full max-w-2xl text-center">
+        <div class="mb-3 flex flex-wrap justify-center gap-2">
+          @for (tag of p.tags; track tag) {
+            <span class="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-800">
+              {{ tag }}
+            </span>
+          }
+        </div>
+
+        <h1 class="mb-2 text-4xl font-bold text-stone-900">{{ p.name }}</h1>
+
+        @if (p.price != null) {
+          <p class="mb-4 text-2xl font-bold text-amber-700">{{ p.price | number:'1.2-2' }} €</p>
+        }
+
+        @if (!p.available) {
+          <p class="mb-4 inline-block rounded-full bg-red-600 px-3 py-1 text-sm font-semibold text-white shadow-sm">
+            Agotado
+          </p>
+        }
+
+        <div class="prose prose-stone mx-auto max-w-none text-base leading-relaxed whitespace-pre-line">{{ p.description }}</div>
+      </div>
+    </article>
+  }
+</div>

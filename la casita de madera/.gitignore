@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.env
+*.log
+uploads/
+!uploads/.gitkeep
+backgrounds/
+!backgrounds/.gitkeep
+data/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+.DS_Store
+Thumbs.db
+/.angular/cache
+postgres/

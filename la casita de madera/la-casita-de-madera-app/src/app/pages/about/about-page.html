@@ -1,0 +1,57 @@
+<div class="min-h-screen bg-[#fdfbf7] font-sans text-stone-900 selection:bg-amber-200">
+  <header class="border-b border-stone-200 bg-white">
+    <div class="mx-auto flex max-w-4xl items-center justify-between px-4 py-4">
+      <a routerLink="/" class="text-sm font-semibold text-amber-700 hover:text-amber-900">
+        &larr; Volver al inicio
+      </a>
+      <span class="font-serif text-lg font-bold text-stone-800">El Colmenar la Casita de Madera</span>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-3xl px-4 py-12">
+    <h1 class="mb-8 text-center font-serif text-4xl font-bold text-stone-800">
+      {{ settings().quienes_title || 'Conoce a Sergio' }}
+    </h1>
+
+    @if (settings().quienes_image_url) {
+      <img
+        [src]="settings().quienes_image_url"
+        alt="Sergio, apicultor"
+        class="mx-auto mb-10 h-72 w-56 rounded-2xl object-cover shadow-md"
+      />
+    } @else {
+      <div class="mx-auto mb-10 flex h-72 w-56 items-center justify-center rounded-2xl bg-stone-200 text-stone-500 shadow-md">
+        Sin Foto
+      </div>
+    }
+
+    <article class="prose prose-stone mx-auto max-w-none text-base leading-relaxed text-stone-700" style="overflow-wrap: break-word; word-break: break-word;">
+      {{ settings().quienes_text || 'Con años de experiencia en el cuidado de las abejas, Sergio se dedica a la apicultura sostenible. Nuestro objetivo es ofrecer la mejor miel artesanal mientras protegemos el ecosistema y fomentamos la biodiversidad local.' }}
+    </article>
+
+    <div class="mt-12 flex flex-col items-center gap-6 sm:flex-row sm:justify-center">
+      <a
+        href="https://www.instagram.com/_casta_/"
+        target="_blank"
+        rel="noopener"
+        class="flex items-center gap-3 rounded-xl border border-stone-300 bg-white px-6 py-4 shadow-sm transition hover:border-amber-400 hover:shadow-md"
+      >
+        <svg class="h-7 w-7 text-stone-800" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 1.62c-3.15 0-3.52.01-4.76.07-.99.04-1.53.21-1.89.35-.47.18-.81.4-1.17.76-.36.36-.58.7-.76 1.17-.14.36-.31.9-.35 1.89-.06 1.24-.07 1.61-.07 4.76s.01 3.52.07 4.76c.04.99.21 1.53.35 1.89.18.47.4.81.76 1.17.36.36.7.58 1.17.76.36.14.9.31 1.89.35 1.24.06 1.61.07 4.76.07s3.52-.01 4.76-.07c.99-.04 1.53-.21 1.89-.35.47-.18.81-.4 1.17-.76.36-.36.58-.7.76-1.17.14-.36.31-.9.35-1.89.06-1.24.07-1.61.07-4.76s-.01-3.52-.07-4.76c-.04-.99-.21-1.53-.35-1.89a3.15 3.15 0 0 0-.76-1.17 3.15 3.15 0 0 0-1.17-.76c-.36-.14-.9-.31-1.89-.35-1.24-.06-1.61-.07-4.76-.07Zm0 2.76a5.46 5.46 0 1 1 0 10.92 5.46 5.46 0 0 1 0-10.92Zm0 9a3.54 3.54 0 1 0 0-7.08 3.54 3.54 0 0 0 0 7.08Zm6.95-9.22a1.28 1.28 0 1 1-2.56 0 1.28 1.28 0 0 1 2.56 0Z" />
+        </svg>
+        <span class="text-sm font-semibold text-stone-800">Proyectos personales</span>
+      </a>
+      <a
+        href="https://www.instagram.com/miel.lacasitademadera/"
+        target="_blank"
+        rel="noopener"
+        class="flex items-center gap-3 rounded-xl border border-stone-300 bg-white px-6 py-4 shadow-sm transition hover:border-amber-400 hover:shadow-md"
+      >
+        <svg class="h-7 w-7 text-stone-800" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 1.62c-3.15 0-3.52.01-4.76.07-.99.04-1.53.21-1.89.35-.47.18-.81.4-1.17.76-.36.36-.58.7-.76 1.17-.14.36-.31.9-.35 1.89-.06 1.24-.07 1.61-.07 4.76s.01 3.52.07 4.76c.04.99.21 1.53.35 1.89.18.47.4.81.76 1.17.36.36.7.58 1.17.76.36.14.9.31 1.89.35 1.24.06 1.61.07 4.76.07s3.52-.01 4.76-.07c.99-.04 1.53-.21 1.89-.35.47-.18.81-.4 1.17-.76.36-.36.58-.7.76-1.17.14-.36.31-.9.35-1.89.06-1.24.07-1.61.07-4.76s-.01-3.52-.07-4.76c-.04-.99-.21-1.53-.35-1.89a3.15 3.15 0 0 0-.76-1.17 3.15 3.15 0 0 0-1.17-.76c-.36-.14-.9-.31-1.89-.35-1.24-.06-1.61-.07-4.76-.07Zm0 2.76a5.46 5.46 0 1 1 0 10.92 5.46 5.46 0 0 1 0-10.92Zm0 9a3.54 3.54 0 1 0 0-7.08 3.54 3.54 0 0 0 0 7.08Zm6.95-9.22a1.28 1.28 0 1 1-2.56 0 1.28 1.28 0 0 1 2.56 0Z" />
+        </svg>
+        <span class="text-sm font-semibold text-stone-800">Proyecto de la casita de madera</span>
+      </a>
+    </div>
+  </main>
+</div>

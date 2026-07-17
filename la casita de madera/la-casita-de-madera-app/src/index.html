@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>La Casita de Madera</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="avatar.ico">
+  <style>
+    .app-loading {
+      position: fixed; inset: 0; z-index: 9999;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: #fdfbf7; font-family: 'Georgia', serif;
+      transition: opacity .4s ease;
+    }
+    .app-loading.hydrated { opacity: 0; pointer-events: none; }
+    .app-loading .logo { font-size: 1.5rem; font-weight: 700; color: #78350f; margin-bottom: 1.5rem; }
+    .app-loading .loader { width: 48px; height: 48px; border: 4px solid #fde68a; border-top-color: #d97706; border-radius: 50%; animation: spin .8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <app-root>
+    <div class="app-loading" id="app-loading">
+      <div class="logo">🍯 La Casita de Madera</div>
+      <div class="loader"></div>
+    </div>
+  </app-root>
+</body>
+</html>

@@ -1,0 +1,283 @@
+﻿<div class="mx-auto max-w-5xl px-4 py-12">
+  <div class="mb-8 flex items-center justify-between">
+    <h1 class="text-3xl font-bold text-stone-900">Admin Dashboard</h1>
+    <div class="flex gap-4">
+      <a
+        routerLink="/"
+        class="text-sm text-amber-700 underline hover:text-amber-800"
+      >
+        Ver sitio
+      </a>
+      @if (currentTab() === 'posts' && !isCreating() && !editingPost()) {
+        <button
+          (click)="startCreate()"
+          class="rounded-lg bg-amber-700 px-4 py-2 text-sm text-white hover:bg-amber-800"
+        >
+          + New Post
+        </button>
+      }
+      @if (currentTab() === 'products' && !isCreatingProduct() && !editingProduct()) {
+        <button
+          (click)="startCreateProduct()"
+          class="rounded-lg bg-amber-700 px-4 py-2 text-sm text-white hover:bg-amber-800"
+        >
+          + Nuevo Producto
+        </button>
+      }
+    </div>
+  </div>
+
+  <div class="mb-6 flex space-x-4 border-b border-stone-200">
+    <button
+      class="px-4 py-2 text-sm font-medium border-b-2"
+      [class.border-amber-600]="currentTab() === 'posts'"
+      [class.text-amber-600]="currentTab() === 'posts'"
+      [class.border-transparent]="currentTab() !== 'posts'"
+      [class.text-stone-500]="currentTab() !== 'posts'"
+      (click)="currentTab.set('posts')"
+    >
+      Blog Posts
+    </button>
+    <button
+      class="px-4 py-2 text-sm font-medium border-b-2"
+      [class.border-amber-600]="currentTab() === 'settings'"
+      [class.text-amber-600]="currentTab() === 'settings'"
+      [class.border-transparent]="currentTab() !== 'settings'"
+      [class.text-stone-500]="currentTab() !== 'settings'"
+      (click)="currentTab.set('settings')"
+    >
+      Configuración de la Home
+    </button>
+    <button
+      class="px-4 py-2 text-sm font-medium border-b-2"
+      [class.border-amber-600]="currentTab() === 'products'"
+      [class.text-amber-600]="currentTab() === 'products'"
+      [class.border-transparent]="currentTab() !== 'products'"
+      [class.text-stone-500]="currentTab() !== 'products'"
+      (click)="currentTab.set('products')"
+    >
+      Productos
+      </button>
+      <button
+        class="px-4 py-2 text-sm font-medium border-b-2"
+        [class.border-amber-600]="currentTab() === 'about'"
+        [class.text-amber-600]="currentTab() === 'about'"
+        [class.border-transparent]="currentTab() !== 'about'"
+        [class.text-stone-500]="currentTab() !== 'about'"
+        (click)="currentTab.set('about')"
+      >
+        Sobre Sergio
+      </button>
+  </div>
+
+  @if (error(); as err) {
+    <div class="mb-6 rounded-lg bg-red-50 p-4 text-red-600">{{ err }}</div>
+  }
+
+  @if (savedBg()) {
+    <div class="mb-6 rounded-lg bg-green-50 p-4 text-green-700">
+      Fondo de pantalla actualizado correctamente.
+    </div>
+  }
+
+  @if (currentTab() === 'settings') {
+    <div class="space-y-8">
+      @defer (when settings()['home_title']) {
+        <div class="rounded-lg border border-stone-200 bg-white p-6">
+          <h2 class="mb-4 text-lg font-semibold text-stone-900">Textos Principales (Hero)</h2>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-stone-700">Título de inicio</label>
+              <input type="text" [ngModel]="settings().home_title" (ngModelChange)="updateSetting('home_title', $event)" [ngModelOptions]="{updateOn: 'blur'}" class="mt-1 block w-full rounded-md border-stone-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-stone-700">Subtítulo de inicio</label>
+              <input type="text" [ngModel]="settings().home_subtitle" (ngModelChange)="updateSetting('home_subtitle', $event)" [ngModelOptions]="{updateOn: 'blur'}" class="mt-1 block w-full rounded-md border-stone-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm">
+            </div>
+          </div>
+        </div>
+
+        <div class="rounded-lg border border-stone-200 bg-white p-6">
+          <h2 class="mb-4 text-lg font-semibold text-stone-900">Sección "Conoce al Apicultor" (inicio)</h2>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-stone-700">Título de la sección</label>
+              <input type="text" [ngModel]="settings().about_title" (ngModelChange)="updateSetting('about_title', $event)" [ngModelOptions]="{updateOn: 'blur'}" class="mt-1 block w-full rounded-md border-stone-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-stone-700">Texto resumen (inicio)</label>
+              <textarea rows="4" [ngModel]="settings().about_excerpt" (ngModelChange)="updateSetting('about_excerpt', $event)" [ngModelOptions]="{updateOn: 'blur'}" class="mt-1 block w-full rounded-md border-stone-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm"></textarea>
+            </div>
+            <app-image-uploader label="Foto del apicultor (inicio)" [currentUrl]="settings().about_image_url || null" (uploaded)="updateSetting('about_image_url', $event)"></app-image-uploader>
+          </div>
+        </div>
+
+        <div class="rounded-lg border border-stone-200 bg-white p-6">
+          <h2 class="mb-4 text-lg font-semibold text-stone-900">Sección "Nuestro Colmenar"</h2>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-stone-700">Texto del colmenar</label>
+              <textarea rows="4" [ngModel]="settings().colmenar_text" (ngModelChange)="updateSetting('colmenar_text', $event)" [ngModelOptions]="{updateOn: 'blur'}" class="mt-1 block w-full rounded-md border-stone-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <app-background-picker
+          [backgrounds]="backgrounds()"
+          [current]="currentBg()"
+          (changed)="setBackground($event)"
+        />
+        <app-image-uploader label="O sube una nueva foto de fondo principal" [currentUrl]="null" (uploaded)="setBackground($event)"></app-image-uploader>
+      } @placeholder {
+        <div class="flex flex-col items-center justify-center py-16 text-amber-700">
+          <div class="h-10 w-10 animate-spin rounded-full border-4 border-amber-200 border-t-amber-600"></div>
+          <p class="mt-4 text-sm font-medium">Cargando configuración…</p>
+        </div>
+      }
+    </div>
+  }
+
+  @if (currentTab() === 'posts') {
+    @if (isCreating() || editingPost()) {
+      <app-blog-form
+        [post]="editingPost()"
+        [submitLabel]="editingPost() ? 'Update' : 'Create'"
+        (saved)="onSaved($event)"
+        (cancelled)="cancelEdit()"
+      />
+    }
+
+    @if (!isCreating() && !editingPost()) {
+      <div class="space-y-4">
+        @for (post of posts(); track post.id) {
+          <div
+            class="flex items-center justify-between rounded-lg border border-stone-200 bg-white p-4"
+          >
+            <div class="flex-1">
+              <h3 class="font-semibold text-stone-900">{{ post.title }}</h3>
+              <div class="mt-1 flex items-center gap-3 text-sm text-stone-400">
+                <span>{{ post.author }}</span>
+                <time>{{ post.created_at | dateFormat }}</time>
+                @if (post.published) {
+                  <span class="rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-700">
+                    Published
+                  </span>
+                } @else {
+                  <span class="rounded-full bg-stone-100 px-2 py-0.5 text-xs text-stone-500">
+                    Draft
+                  </span>
+                }
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <button
+                (click)="startEdit(post)"
+                class="rounded-lg border px-3 py-1 text-sm hover:bg-stone-100"
+              >
+                Edit
+              </button>
+              <button
+                (click)="deletePost(post.id)"
+                class="rounded-lg border border-red-200 px-3 py-1 text-sm text-red-600 hover:bg-red-50"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        } @empty {
+          <div class="flex flex-col items-center justify-center py-10 text-amber-600">
+            <svg class="h-12 w-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/></svg>
+            <p class="mt-3 text-sm font-medium">No hay posts todavía. ¡Crea el primero!</p>
+          </div>
+        }
+      </div>
+    }
+  }
+
+  @if (currentTab() === 'products') {
+    @if (isCreatingProduct() || editingProduct()) {
+      <app-product-form
+        [product]="editingProduct()"
+        [submitLabel]="editingProduct() ? 'Update' : 'Create'"
+        (saved)="onProductSaved($event)"
+        (cancelled)="cancelProductEdit()"
+      />
+    }
+
+    @if (!isCreatingProduct() && !editingProduct()) {
+      <div class="space-y-4">
+        @for (product of products(); track product.id) {
+          <div
+            class="flex items-center justify-between rounded-lg border border-stone-200 bg-white p-4"
+          >
+            <div class="flex-1">
+              <h3 class="font-semibold text-stone-900">{{ product.name }}</h3>
+              <div class="mt-1 flex items-center gap-3 text-sm text-stone-400">
+                @if (product.price != null) {
+                  <span>{{ product.price | number:'1.2-2' }} €</span>
+                }
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <button
+                (click)="startEditProduct(product)"
+                class="rounded-lg border px-3 py-1 text-sm hover:bg-stone-100"
+              >
+                Edit
+              </button>
+              <button
+                (click)="deleteProduct(product.id)"
+                class="rounded-lg border border-red-200 px-3 py-1 text-sm text-red-600 hover:bg-red-50"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        } @empty {
+          <div class="flex flex-col items-center justify-center py-10 text-amber-600">
+            <svg class="h-12 w-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+            <p class="mt-3 text-sm font-medium">No hay productos todavía. ¡Crea el primero!</p>
+          </div>
+        }
+      </div>
+    }
+  }
+
+  @if (currentTab() === 'about') {
+    <div class="space-y-8">
+      @defer (when settings()['quienes_title']) {
+        <div class="rounded-lg border border-stone-200 bg-white p-6">
+          <h2 class="mb-4 text-lg font-semibold text-stone-900">Página "Quiénes Somos"</h2>
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-stone-700">Título</label>
+              <input type="text" [ngModel]="settings().quienes_title" (ngModelChange)="updateSetting('quienes_title', $event)" [ngModelOptions]="{updateOn: 'blur'}" class="mt-1 block w-full rounded-md border-stone-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-stone-700">Imagen</label>
+              <app-image-uploader label="Imagen de la página" [currentUrl]="settings().quienes_image_url || null" (uploaded)="updateSetting('quienes_image_url', $event)"></app-image-uploader>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-stone-700">Texto completo (página Quiénes Somos)</label>
+              <textarea rows="12" [ngModel]="settings().quienes_text" (ngModelChange)="updateSetting('quienes_text', $event)" [ngModelOptions]="{updateOn: 'blur'}" class="mt-1 block w-full rounded-md border-stone-300 shadow-sm focus:border-amber-500 focus:ring-amber-500 sm:text-sm"></textarea>
+            </div>
+          </div>
+        </div>
+        <a
+          routerLink="/quienes-somos"
+          target="_blank"
+          class="inline-block text-sm text-amber-700 underline hover:text-amber-800"
+        >
+          Ver página
+        </a>
+      } @placeholder {
+        <div class="flex flex-col items-center justify-center py-16 text-amber-700">
+          <div class="h-10 w-10 animate-spin rounded-full border-4 border-amber-200 border-t-amber-600"></div>
+          <p class="mt-4 text-sm font-medium">Cargando contenido…</p>
+        </div>
+      }
+    </div>
+  }
+</div>
+
+

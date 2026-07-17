@@ -1,0 +1,35 @@
+<article
+  class="group mb-6 cursor-pointer overflow-hidden rounded-xl border border-stone-200 bg-white shadow-sm transition hover:shadow-md"
+  [routerLink]="['/blog', post().slug]"
+>
+  @if (post().image_url) {
+    <img
+      [src]="post().image_url"
+      [alt]="post().title"
+      class="h-48 w-full object-cover"
+    />
+  }
+  <div class="p-6">
+  <div class="mb-3 flex flex-wrap gap-2">
+    @for (tag of post().tags; track tag) {
+      <span
+        class="rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-800"
+      >
+        {{ tag }}
+      </span>
+    }
+  </div>
+  <h3 class="mb-2 text-xl font-semibold text-stone-900 group-hover:text-amber-700">
+    {{ post().title }}
+  </h3>
+  @if (post().excerpt) {
+    <p class="mb-4 line-clamp-2 text-stone-600">
+      {{ post().excerpt }}
+    </p>
+  }
+  <div class="flex items-center justify-between text-sm text-stone-400">
+    <span>{{ post().author }}</span>
+    <time>{{ post().created_at | date }}</time>
+  </div>
+  </div>
+</article>
