@@ -7,19 +7,19 @@
 
 [[redirects]]
   from = "/api/*"
-  to = "https://YOUR_RENDER_API_URL.onrender.com/api/:splat"
+  to = "https://la-casita-de-madera-api.onrender.com/api/:splat"
   status = 200
   force = false
 
 [[redirects]]
   from = "/uploads/*"
-  to = "https://YOUR_RENDER_API_URL.onrender.com/uploads/:splat"
+  to = "https://la-casita-de-madera-api.onrender.com/uploads/:splat"
   status = 200
   force = false
 
 [[redirects]]
   from = "/backgrounds/*"
-  to = "https://YOUR_RENDER_API_URL.onrender.com/backgrounds/:splat"
+  to = "https://la-casita-de-madera-api.onrender.com/backgrounds/:splat"
   status = 200
   force = false
 
